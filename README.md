@@ -11,3 +11,7 @@ Create index.html as a file, use all scripts (react, react-dom, babel) from CDN.
 http://expressjs.com/en/starter/hello-world.html
 http://expressjs.com/en/starter/static-files.html
 Use Node and Express to serve the HTML file.
+
+#Step 2 : Organisation
+
+2.1 : Spération du script et du html
