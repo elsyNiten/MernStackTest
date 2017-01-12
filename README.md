@@ -17,3 +17,7 @@ Use Node and Express to serve the HTML file.
 2.1 : Spération du script et du html
 2.2 : Utilisation de npm
   Transformation de fichier JSX en JS manuellement coté server avec Babel
+
+#Step 3 : Components
+
+  3.1 : Créer un composant avec une class qui extend React.Component
