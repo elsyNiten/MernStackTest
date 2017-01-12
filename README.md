@@ -23,3 +23,8 @@ Use Node and Express to serve the HTML file.
 ##3.1 : Créer un composant avec une class qui extend React.Component
 ##3.2 : Compose Component
   Intégrer et hierarchiser plusieurs composants
+
+## 3.3  :  Props + Composants dynamique
+  Passer des props à un composants.
+  Générer dynamiquement des composants à partir de datas
+  Problématique : La gestion des css globaux pour les composants ne semble pas pratique du tout.

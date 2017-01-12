@@ -1,3 +1,27 @@
+const bugliste = [
+  {
+    status : 'Open',
+    priority : 'P1',
+    owner : 'Jason',
+    title : 'app crashes on open'
+  },
+  {
+    status : 'New',
+    priority : 'P2',
+    owner : 'AC',
+    title : 'bordure ne s\'affiche pas sur les tableaux'
+  }
+];
+
+const tableBorder = {
+  "border-collapse" : "collapse",
+  "border" : "1px solid black"
+};
+
+const border1 = {
+  border : "1px solid black"
+};
+
 class BugList extends React.Component {
   render() {
     return (
@@ -5,7 +29,7 @@ class BugList extends React.Component {
         <h1> Bug Tracker</h1>
         <div>
           <BugFilter />
-          <BugTable />
+          <BugTable rows={this.props.bugs}/>
           <BugAdd />
         </div>
       </section>
@@ -26,9 +50,39 @@ class BugFilter extends React.Component {
 class BugTable extends React.Component {
   render() {
     return(
-      <section>
-        <h2>List of all Bug</h2>
-      </section>
+      <table style={tableBorder}>
+        <thead>
+          <tr style={border1}>
+            <td style={border1}>Id</td>
+            <td style={border1}>Status</td>
+            <td style={border1}>Priority</td>
+            <td style={border1}>Owner</td>
+            <td style={border1}>Title</td>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            this.props.rows.map((bug, index) => {
+              let props = Object.assign(Object.assign({id:parseInt(index)+1},bug ));
+              return (<BugRow  key={index} {...props}/>)
+            })
+          }
+        </tbody>
+      </table>
+    )
+  }
+}
+
+class BugRow extends React.Component {
+  render() {
+    return(
+      <tr style={border1}>
+        <td style={border1}>{this.props.id}</td>
+        <td style={border1}>{this.props.status}</td>
+        <td style={border1}>{this.props.priority}</td>
+        <td style={border1}>{this.props.owner}</td>
+        <td style={border1}>{this.props.title}</td>
+      </tr>
     )
   }
 }
@@ -44,6 +98,6 @@ class BugAdd extends React.Component {
 }
 
 ReactDOM.render(
-  <BugList/>,
+  <BugList bugs={bugliste}/>,
   document.getElementById('main')
 )
