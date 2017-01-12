@@ -1,3 +1,5 @@
 # MERNStackTest
 
-#Step 1 : React : hello world
+#Step 1 : HELLO WORLD
+
+## 1.1 : React
