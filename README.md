@@ -15,3 +15,5 @@ Use Node and Express to serve the HTML file.
 #Step 2 : Organisation
 
 2.1 : Spération du script et du html
+2.2 : Utilisation de npm
+  Transformation de fichier JSX en JS manuellement coté server avec Babel
