@@ -21,3 +21,5 @@ Use Node and Express to serve the HTML file.
 #Step 3 : Components
 
 ##3.1 : Créer un composant avec une class qui extend React.Component
+##3.2 : Compose Component
+  Intégrer et hierarchiser plusieurs composants
