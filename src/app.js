@@ -14,7 +14,7 @@ const bugliste = [
 ];
 
 const tableBorder = {
-  "border-collapse" : "collapse",
+  "borderCollapse" : "collapse",
   "border" : "1px solid black"
 };
 
@@ -23,14 +23,33 @@ const border1 = {
 };
 
 class BugList extends React.Component {
-  render() {
+  constructor (props) {
+    super(props);
+    this.state = {
+      bugs : bugliste
+    };
+  }
+
+  addBug(bug) {
+    let bugsClone = this.state.bugs.slice();
+    bugsClone.push(bug);
+
+    this.setState({
+        bugs: bugsClone
+    })
+  }
+
+  render () {
+    //console.log("render : buglist");
     return (
       <section>
         <h1> Bug Tracker</h1>
         <div>
           <BugFilter />
-          <BugTable rows={this.props.bugs}/>
-          <BugAdd />
+          <hr/>
+          <BugTable bugs={this.state.bugs}/>
+          <hr/>
+          <BugAdd  ajouterBug={(bug) => this.addBug(bug)}/>
         </div>
       </section>
     )
@@ -39,6 +58,7 @@ class BugList extends React.Component {
 
 class BugFilter extends React.Component {
   render() {
+    //console.log("render : bugfilter");
     return(
       <section>
         <h2>Bug Filter</h2>
@@ -49,6 +69,7 @@ class BugFilter extends React.Component {
 
 class BugTable extends React.Component {
   render() {
+    //console.log("render : bugTable");
     return(
       <table style={tableBorder}>
         <thead>
@@ -62,7 +83,7 @@ class BugTable extends React.Component {
         </thead>
         <tbody>
           {
-            this.props.rows.map((bug, index) => {
+            this.props.bugs.map((bug, index) => {
               let props = Object.assign(Object.assign({id:parseInt(index)+1},bug ));
               return (<BugRow  key={index} {...props}/>)
             })
@@ -75,6 +96,7 @@ class BugTable extends React.Component {
 
 class BugRow extends React.Component {
   render() {
+    //console.log("render : bugRow");
     return(
       <tr style={border1}>
         <td style={border1}>{this.props.id}</td>
@@ -88,16 +110,49 @@ class BugRow extends React.Component {
 }
 
 class BugAdd extends React.Component {
+  clickHandler() {
+    const form = document.forms.addForm;
+
+    const newBug = {
+      status : 'New',
+      priority : form.priority.value || P3,
+      owner : form.owner.value || 'Uknown',
+      title : form.owner.title || "nouveau bug"
+    };
+
+    this.props.ajouterBug(newBug);
+  }
+
   render() {
     return (
       <section>
-        <h2>Form to add new Bugs</h2>
+        <form name="addForm">
+          <label>
+            owner :
+            <input type="text" name="owner"/>
+          </label><br/>
+          <label>
+            title :
+            <input type="text" name="title"/>
+          </label><br/>
+          <label>
+            Priorité :
+            <select name="priority">
+              <option  value="P1">P1</option>
+              <option  value="P2">P2</option>
+              <option  value="P3">P3</option>
+            </select>
+          </label><br/>
+
+          <input type="button" value="ajouter bug" onClick={() => this.clickHandler()}/>
+        </form>
       </section>
     )
   }
 }
 
 ReactDOM.render(
-  <BugList bugs={bugliste}/>,
+  //console.log("render : first");
+  <BugList />,
   document.getElementById('main')
 )

@@ -27,4 +27,12 @@ Use Node and Express to serve the HTML file.
 ## 3.3  :  Props + Composants dynamique
   Passer des props à un composants.
   Générer dynamiquement des composants à partir de datas
+
   Problématique : La gestion des css globaux pour les composants ne semble pas pratique du tout.
+
+# Step 4 : Handling State
+  Setter un init state via le constructeur. (le constructeur doit toujours appeler super())
+  Update le state à partir d'un enfant :
+    - Ecrire la methode qui appel setState dans le parent
+    - Passer en props du composant enfant la methode ci dessus. !Attention, pour conserver le contexte du this, utiliser une arrow function dans la props : propsName={() => function()}, ou binder la methode du parent au this dans le constructeur : this.addBug = this.addBug.bind(this);
+
