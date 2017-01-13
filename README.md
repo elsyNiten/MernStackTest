@@ -20,9 +20,9 @@ Use Node and Express to serve the HTML file.
 
 #Step 3 : Components
 
-##3.1 : Créer un composant avec une class qui extend React.Component
+##3.1 : Créer un composant avec une class qui extends React.Component
 ##3.2 : Compose Component
-  Intégrer et hierarchiser plusieurs composants
+  Intégrer et hiérarchiser plusieurs composants
 
 ## 3.3  :  Props + Composants dynamique
   Passer des props à un composants.
@@ -33,6 +33,6 @@ Use Node and Express to serve the HTML file.
 # Step 4 : Handling State
   Setter un init state via le constructeur. (le constructeur doit toujours appeler super())
   Update le state à partir d'un enfant :
-    - Ecrire la methode qui appel setState dans le parent
+    - Ecrire la méthode qui appel setState dans le parent
     - Passer en props du composant enfant la methode ci dessus. !Attention, pour conserver le contexte du this, utiliser une arrow function dans la props : propsName={() => function()}, ou binder la methode du parent au this dans le constructeur : this.addBug = this.addBug.bind(this);
 

@@ -1,18 +1,3 @@
-const bugliste = [
-  {
-    status : 'Open',
-    priority : 'P1',
-    owner : 'Jason',
-    title : 'app crashes on open'
-  },
-  {
-    status : 'New',
-    priority : 'P2',
-    owner : 'AC',
-    title : 'bordure ne s\'affiche pas sur les tableaux'
-  }
-];
-
 const tableBorder = {
   "borderCollapse" : "collapse",
   "border" : "1px solid black"
