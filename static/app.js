@@ -1,19 +1,7 @@
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-const bugliste = [{
-  status: 'Open',
-  priority: 'P1',
-  owner: 'Jason',
-  title: 'app crashes on open'
-}, {
-  status: 'New',
-  priority: 'P2',
-  owner: 'AC',
-  title: 'bordure ne s\'affiche pas sur les tableaux'
-}];
-
 const tableBorder = {
-  "border-collapse": "collapse",
+  "borderCollapse": "collapse",
   "border": "1px solid black"
 };
 
@@ -22,21 +10,40 @@ const border1 = {
 };
 
 class BugList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bugs: bugliste
+    };
+  }
+
+  addBug(bug) {
+    let bugsClone = this.state.bugs.slice();
+    bugsClone.push(bug);
+
+    this.setState({
+      bugs: bugsClone
+    });
+  }
+
   render() {
+    //console.log("render : buglist");
     return React.createElement(
-      'section',
+      "section",
       null,
       React.createElement(
-        'h1',
+        "h1",
         null,
-        ' Bug Tracker'
+        " Bug Tracker"
       ),
       React.createElement(
-        'div',
+        "div",
         null,
         React.createElement(BugFilter, null),
-        React.createElement(BugTable, { rows: this.props.bugs }),
-        React.createElement(BugAdd, null)
+        React.createElement("hr", null),
+        React.createElement(BugTable, { bugs: this.state.bugs }),
+        React.createElement("hr", null),
+        React.createElement(BugAdd, { ajouterBug: bug => this.addBug(bug) })
       )
     );
   }
@@ -44,13 +51,14 @@ class BugList extends React.Component {
 
 class BugFilter extends React.Component {
   render() {
+    //console.log("render : bugfilter");
     return React.createElement(
-      'section',
+      "section",
       null,
       React.createElement(
-        'h2',
+        "h2",
         null,
-        'Bug Filter'
+        "Bug Filter"
       )
     );
   }
@@ -58,46 +66,47 @@ class BugFilter extends React.Component {
 
 class BugTable extends React.Component {
   render() {
+    //console.log("render : bugTable");
     return React.createElement(
-      'table',
+      "table",
       { style: tableBorder },
       React.createElement(
-        'thead',
+        "thead",
         null,
         React.createElement(
-          'tr',
+          "tr",
           { style: border1 },
           React.createElement(
-            'td',
+            "td",
             { style: border1 },
-            'Id'
+            "Id"
           ),
           React.createElement(
-            'td',
+            "td",
             { style: border1 },
-            'Status'
+            "Status"
           ),
           React.createElement(
-            'td',
+            "td",
             { style: border1 },
-            'Priority'
+            "Priority"
           ),
           React.createElement(
-            'td',
+            "td",
             { style: border1 },
-            'Owner'
+            "Owner"
           ),
           React.createElement(
-            'td',
+            "td",
             { style: border1 },
-            'Title'
+            "Title"
           )
         )
       ),
       React.createElement(
-        'tbody',
+        "tbody",
         null,
-        this.props.rows.map((bug, index) => {
+        this.props.bugs.map((bug, index) => {
           let props = Object.assign(Object.assign({ id: parseInt(index) + 1 }, bug));
           return React.createElement(BugRow, _extends({ key: index }, props));
         })
@@ -108,31 +117,32 @@ class BugTable extends React.Component {
 
 class BugRow extends React.Component {
   render() {
+    //console.log("render : bugRow");
     return React.createElement(
-      'tr',
+      "tr",
       { style: border1 },
       React.createElement(
-        'td',
+        "td",
         { style: border1 },
         this.props.id
       ),
       React.createElement(
-        'td',
+        "td",
         { style: border1 },
         this.props.status
       ),
       React.createElement(
-        'td',
+        "td",
         { style: border1 },
         this.props.priority
       ),
       React.createElement(
-        'td',
+        "td",
         { style: border1 },
         this.props.owner
       ),
       React.createElement(
-        'td',
+        "td",
         { style: border1 },
         this.props.title
       )
@@ -141,17 +151,71 @@ class BugRow extends React.Component {
 }
 
 class BugAdd extends React.Component {
+  clickHandler() {
+    const form = document.forms.addForm;
+
+    const newBug = {
+      status: 'New',
+      priority: form.priority.value || P3,
+      owner: form.owner.value || 'Uknown',
+      title: form.owner.title || "nouveau bug"
+    };
+
+    this.props.ajouterBug(newBug);
+  }
+
   render() {
     return React.createElement(
-      'section',
+      "section",
       null,
       React.createElement(
-        'h2',
-        null,
-        'Form to add new Bugs'
+        "form",
+        { name: "addForm" },
+        React.createElement(
+          "label",
+          null,
+          "owner :",
+          React.createElement("input", { type: "text", name: "owner" })
+        ),
+        React.createElement("br", null),
+        React.createElement(
+          "label",
+          null,
+          "title :",
+          React.createElement("input", { type: "text", name: "title" })
+        ),
+        React.createElement("br", null),
+        React.createElement(
+          "label",
+          null,
+          "Priorit\xE9 :",
+          React.createElement(
+            "select",
+            { name: "priority" },
+            React.createElement(
+              "option",
+              { value: "P1" },
+              "P1"
+            ),
+            React.createElement(
+              "option",
+              { value: "P2" },
+              "P2"
+            ),
+            React.createElement(
+              "option",
+              { value: "P3" },
+              "P3"
+            )
+          )
+        ),
+        React.createElement("br", null),
+        React.createElement("input", { type: "button", value: "ajouter bug", onClick: () => this.clickHandler() })
       )
     );
   }
 }
 
-ReactDOM.render(React.createElement(BugList, { bugs: bugliste }), document.getElementById('main'));
+ReactDOM.render(
+//console.log("render : first");
+React.createElement(BugList, null), document.getElementById('main'));
