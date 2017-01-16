@@ -16,8 +16,12 @@ app.get('/api/bugs', (req, res) => {
 })
 
 app.post('/api/bugs', (req,res) => {
-  bugliste.push(req.body);
-  res.json(bugliste)
+
+  let serverbug = req.body;
+  serverbug.title = "server : " + serverbug.title;
+
+  bugliste.push(serverbug);
+  res.json(serverbug);
 })
 
 app.listen(3000, () => {

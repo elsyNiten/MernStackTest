@@ -7,20 +7,52 @@ const border1 = {
   border : "1px solid black"
 };
 
+
 class BugList extends React.Component {
   constructor (props) {
     super(props);
+
     this.state = {
-      bugs : bugliste
+      bugs : []
     };
   }
 
-  addBug(bug) {
-    let bugsClone = this.state.bugs.slice();
-    bugsClone.push(bug);
+  componentWillMount () {
+    fetch('http://localhost:3000/api/bugs')
+    .then((res) => {
+      return res.json()
+    })
+    .then(( res ) => {
+      this.setState({
+        bugs : res
+      })
+    })
+  }
 
-    this.setState({
+
+  addBug (bug) {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const init = {
+      method: 'POST',
+      headers: myHeaders,
+      body : JSON.stringify(bug),
+      mode: 'cors',
+      cache: 'default'
+    };
+
+    fetch('http://localhost:3000/api/bugs', init)
+    .then((res) => {
+      return res.json()
+    })
+    .then(( serverBug ) => {
+
+      let bugsClone = this.state.bugs.slice();
+      bugsClone.push(serverBug);
+
+      this.setState({
         bugs: bugsClone
+      })
     })
   }
 
@@ -102,7 +134,7 @@ class BugAdd extends React.Component {
       status : 'New',
       priority : form.priority.value || P3,
       owner : form.owner.value || 'Uknown',
-      title : form.owner.title || "nouveau bug"
+      title : form.title.value || "nouveau bug"
     };
 
     this.props.ajouterBug(newBug);
@@ -111,7 +143,7 @@ class BugAdd extends React.Component {
   render() {
     return (
       <section>
-        <form name="addForm">
+        <form id="addForm" name="addForm">
           <label>
             owner :
             <input type="text" name="owner"/>

@@ -36,3 +36,7 @@ Use Node and Express to serve the HTML file.
     - Ecrire la méthode qui appel setState dans le parent
     - Passer en props du composant enfant la methode ci dessus. !Attention, pour conserver le contexte du this, utiliser une arrow function dans la props : propsName={() => function()}, ou binder la methode du parent au this dans le constructeur : this.addBug = this.addBug.bind(this);
 
+# Step 5 : API
+  Method GET et POST coté server : classiec
+  Coté client, utilisation de fetch (pas de methode integrer à réact) pour requeter. Attention! Méthode expérimental
+  Intéressant : Même sans base de données, les enregistrements sont pertinents sur mon server.
